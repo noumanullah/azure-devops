@@ -23,7 +23,19 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Run make command
-        run: make hello
+      - name: setup python 3.5
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.5
+      
+      - name: Install Dependencies
+        run: |
+          make install
+          
+      - name: Lint with Python
+        run: |
+          make lint
+      
+      - name: Test with pyTest
+        run: |
+          make test
